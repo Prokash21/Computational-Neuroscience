@@ -24,7 +24,7 @@ a = a/float(np.sum(a))
 H = 0
 for i in a:
     H += i*np.log2(i)
-print str(-H)
+print(str(-H))
 #%% Entropy of a Bernoulli process with different values for p
 p = np.arange(0.01,1,0.01)
 
