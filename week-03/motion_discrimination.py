@@ -10,6 +10,7 @@ Simulation of Britten et al '92 data
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import poisson
+from scipy.integrate import trapezoid
 
 def r(theta, theta_p = 0, c = 1.0, r_max = 30, K = 20, sigma = 10):
     A = c*r_max
@@ -42,7 +43,7 @@ plt.plot([0,1],[0,1],'--k')
 plt.axis('scaled')
 plt.xlabel(r'$\alpha$')
 plt.ylabel(r'$\beta$')
-np.trapz(beta_z[::-1], x = alpha_z[::-1])
+_auc = trapezoid(beta_z[::-1], x=alpha_z[::-1])
 
 #%% Construct neurometric curve by simulating with different coherence values
 c_values = np.arange(0,1.1,0.1)
@@ -58,7 +59,7 @@ for i in range(len(c_values)):
         alpha_z[j] = float(np.sum(r_min>z_values[j]))/n_trials
         beta_z[j]  = float(np.sum(r_plus>z_values[j]))/n_trials
 
-    auc_performance[i] = np.trapz(beta_z[::-1], x = alpha_z[::-1])
+    auc_performance[i] = trapezoid(beta_z[::-1], x=alpha_z[::-1])
     
 plt.plot(c_values, auc_performance)
 plt.xlabel('Coherence level')
