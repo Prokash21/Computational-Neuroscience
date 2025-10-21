@@ -95,7 +95,7 @@ for data_index in range(len(cluster_data)):
     predictions[data_index] = v
 
 plt.subplot(121)
-plt.title('Actual cl)
+plt.title('Actual class')
 plt.scatter(cluster_data[:,0],cluster_data[:,1],c=cluster_data[:,2])
 plt.axhline(0,color='k', linewidth=0.5)
 plt.axvline(0,color='k', linewidth=0.5)
