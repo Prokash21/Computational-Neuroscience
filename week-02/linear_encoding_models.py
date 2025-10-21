@@ -6,6 +6,7 @@ Created on Tue Feb 14 22:26:24 2017
 """
 
 import numpy as np
+import math
 import matplotlib.pyplot as plt
 
 #%% Preliminary code
@@ -100,9 +101,18 @@ plt.axhline(0,color='k')
 plt.title('Receptive field cross section')
 plt.axis('off')
 
-import scipy.misc
 from scipy import signal
-ascent = scipy.misc.ascent()
+# Load a sample image compatible with modern SciPy. Prefer scipy.datasets; fallback to legacy scipy.misc; else synthesize.
+try:
+    from scipy import datasets as _scipy_datasets
+    ascent = _scipy_datasets.ascent()
+except Exception:
+    try:
+        import scipy.misc as _scipy_misc  # type: ignore
+        ascent = _scipy_misc.ascent()
+    except Exception:
+        Xg, Yg = np.meshgrid(np.linspace(-np.pi, np.pi, 256), np.linspace(-np.pi, np.pi, 256))
+        ascent = (127.5 * (np.sin(3 * Xg) + np.cos(5 * Yg))).astype(np.float32)
 plt.gray()
 plt.imshow(ascent)
 
@@ -136,7 +146,7 @@ plt.axhline(0,color='k')
 alpha = 1/15.0
 t = np.arange(0,300,1)
 
-D = alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(np.math.factorial(5)) - ((alpha*t)**7)/np.math.factorial(7))
+D = alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(math.factorial(5)) - ((alpha*t)**7)/math.factorial(7))
 
 plt.plot(-t,D)
 
