@@ -7,13 +7,14 @@ Created on Tue Feb 14 22:26:24 2017
 
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 #%% Time reversal filter described by Adelson and Bergen (1985)
 L = 300             # range [ms]
 alpha = 1.0/15      # [ms]
 t = np.arange(0,L,1)
 
-D = alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(np.math.factorial(5)) - ((alpha*t)**7)/np.math.factorial(7))
+D = alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(math.factorial(5)) - ((alpha*t)**7)/math.factorial(7))
 plt.plot(-t,D)
 
 #%% Linear stage: filtering of the response
@@ -62,14 +63,14 @@ sta_hist = np.histogram(linear_resp[spikes == 1],bins)[0]
 nl_estimate = np.true_divide(sta_hist,raw_hist)
 
 plt.subplot(1,2,1)
-plt.hist(linear_resp,bins, normed = True,alpha = 0.5)
-plt.hist(linear_resp[spikes == 1],bins, normed = True,alpha = 0.5)
+plt.hist(linear_resp, bins, density=True, alpha=0.5)
+plt.hist(linear_resp[spikes == 1], bins, density=True, alpha=0.5)
 plt.subplot(1,2,2)
 plt.plot(bins[:-1],nl_estimate)
 
 #%% Demonstration of a nonlinear pooling cell
-D1 = alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(np.math.factorial(5)))
-D2 = -alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(np.math.factorial(5)))
+D1 = alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(math.factorial(5)))
+D2 = -alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(math.factorial(5)))
 plt.plot(-t,D1)
 plt.plot(-t,D2)
 
