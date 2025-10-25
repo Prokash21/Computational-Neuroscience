@@ -28,6 +28,7 @@ for i in range(n_clusters):
     cluster_data = np.concatenate((cluster_data,np.array([x,y,c]).transpose()),axis=0)
     
 #%% Inspect the input data
+plt.figure(constrained_layout=True)
 plt.scatter(cluster_data[:,0],cluster_data[:,1],c=cluster_data[:,2])
 plt.clim(0,1)
 plt.axhline(0,color='k', linewidth=0.5)
@@ -82,6 +83,7 @@ for it_index in range(n_iterations):
         sse[it_index] += np.sum(np.square(d-v_act))
 
 sse /= len(cluster_data)
+plt.figure(constrained_layout=True)
 plt.plot(sse)
 
 #%% Calculate the final predictions and plot the results
@@ -94,6 +96,7 @@ for data_index in range(len(cluster_data)):
     
     predictions[data_index] = v
 
+plt.figure(constrained_layout=True)
 plt.subplot(121)
 plt.title('Actual class')
 plt.scatter(cluster_data[:,0],cluster_data[:,1],c=cluster_data[:,2])

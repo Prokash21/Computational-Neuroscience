@@ -46,7 +46,7 @@ y_0 = np.squeeze(u_1/w_1[0,1] - w_1[0,0]*x_0/w_1[0,1])
 y_1 = np.squeeze(u_1/w_1[0,1] - w_1[0,0]*x_1/w_1[0,1])
 
 # Produce some plots
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.scatter(cluster_A[:,0],cluster_A[:,1],color = 'r')
 plt.scatter(cluster_B[:,0],cluster_B[:,1],color = 'g')

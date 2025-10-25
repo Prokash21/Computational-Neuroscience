@@ -23,7 +23,7 @@ u[t_stim]   = 1
 r[t_reward-2:t_reward+2] = 1
 
 
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.subplot(4,2,1)
 plt.plot(u)
 plt.subplot(4,2,3)
@@ -44,7 +44,7 @@ for trial_id in range(n_trials):
         w[0:(t+1)] += eps*delta_err*u[t::-1]
         
     
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.imshow(err_evolution, origin='lower')
 plt.xlabel('Time')
