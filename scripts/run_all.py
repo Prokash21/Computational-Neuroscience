@@ -58,14 +58,26 @@ def build_week_montage(week, outdir="outputs", exclude_in_montage=None):
         return
     # Collect fig1 from each script folder under the week output
     images = []
+    labels = []
     for d in sorted(os.listdir(week_out)):
         if d.lower() == "overview":
             continue
         if exclude_in_montage and any(exc in d for exc in exclude_in_montage):
             continue
-        p = os.path.join(week_out, d, "fig1.png")
-        if os.path.exists(p):
-            images.append(p)
+        out_subdir = os.path.join(week_out, d)
+        preferred = os.path.join(out_subdir, "fig1.png")
+        chosen = None
+        if os.path.exists(preferred):
+            chosen = preferred
+        else:
+            # Fallback: first PNG in directory (e.g., descriptive name)
+            pngs = sorted(glob.glob(os.path.join(out_subdir, "*.png")))
+            if pngs:
+                chosen = pngs[0]
+        if chosen:
+            images.append(chosen)
+            lab = os.path.basename(d).replace('-', ' ').replace('_', ' ').title()
+            labels.append(lab)
     if not images:
         return
     rows, cols = compute_grid(len(images))
@@ -82,7 +94,14 @@ def build_week_montage(week, outdir="outputs", exclude_in_montage=None):
         str(rows),
         "--cols",
         str(cols),
-    ] + images
+        "--padding", "16",
+        "--border-width", "1",
+        "--border-color", "200,200,200",
+        "--label-height", "26",
+        "--label-color", "0,0,0",
+        "--label-bg", "245,245,245",
+        "--labels",
+    ] + labels + ["--"] + images
     run(cmd)
 
 
@@ -92,6 +111,8 @@ def main():
     parser.add_argument("--outdir", default="outputs", help="Output root directory")
     parser.add_argument("--exclude", nargs="*", default=[], help="Substring filters of script basenames to skip during run")
     parser.add_argument("--use-kagglehub", action="store_true", help="Pass KaggleHub flag to eigenfaces")
+    parser.add_argument("--use-sklearn", action="store_true", help="Pass scikit-learn fallback flag to eigenfaces")
+    parser.add_argument("--data-dir", dest="data_dir", default=None, help="Path to AT&T faces directory containing s1..s40")
     args = parser.parse_args()
 
     weeks = discover_week_dirs(args.weeks)
@@ -102,14 +123,20 @@ def main():
 
     for rel in scripts:
         extra = []
-        if os.path.basename(rel) == "eigenfaces.py" and args.use_kagglehub:
-            extra = ["--", "--use-kagglehub"]
+        if os.path.basename(rel) == "eigenfaces.py":
+            if args.data_dir:
+                extra = ["--", "--data-dir", args.data_dir]
+            elif args.use_kagglehub:
+                extra = ["--", "--use-kagglehub"]
+            elif args.use_sklearn:
+                extra = ["--", "--use-sklearn"]
         cmd = [
             sys.executable,
             os.path.join(ROOT, "scripts", "run_and_save.py"),
-            rel,
             "--outdir",
             args.outdir,
+            "--max-figs", "2",
+            rel,
         ] + extra
         run(cmd, cwd=ROOT)
 
