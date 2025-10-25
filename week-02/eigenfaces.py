@@ -13,6 +13,7 @@ import glob
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import TwoSlopeNorm
 from PIL import Image
 
 
@@ -145,7 +146,11 @@ def main():
     # [EF = 5     ] [EF = 10 ] [EF = 40     ]
     fig, axes = plt.subplots(2, 3, figsize=(12, 8), constrained_layout=True)
 
-    axes[0, 0].imshow(eigenface_1, cmap="gray", aspect="equal")
+    # Use symmetric contrast for eigenfaces to emphasize +/- structure
+    evlim = max(abs(eigenface_1).max(), abs(eigenface_2).max()) or 1.0
+    norm = TwoSlopeNorm(vmin=-evlim, vcenter=0.0, vmax=evlim)
+
+    axes[0, 0].imshow(eigenface_1, cmap="gray", aspect="equal", norm=norm)
     axes[0, 0].set_title("Eigenface #1")
     axes[0, 0].axis("off")
 
@@ -153,7 +158,7 @@ def main():
     axes[0, 1].set_title("Original (standardized)")
     axes[0, 1].axis("off")
 
-    axes[0, 2].imshow(eigenface_2, cmap="gray", aspect="equal")
+    axes[0, 2].imshow(eigenface_2, cmap="gray", aspect="equal", norm=norm)
     axes[0, 2].set_title("Eigenface #2")
     axes[0, 2].axis("off")
 

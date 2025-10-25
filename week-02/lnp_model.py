@@ -15,12 +15,14 @@ alpha = 1.0/15      # [ms]
 t = np.arange(0,L,1)
 
 D = alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(math.factorial(5)) - ((alpha*t)**7)/math.factorial(7))
+plt.figure(constrained_layout=True)
 plt.plot(-t,D)
 
 #%% Linear stage: filtering of the response
 n_samples   = 500000
 noise_stim  = np.random.normal(0.0,1.0,n_samples)
 linear_resp = np.convolve(noise_stim,D)[:n_samples]
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.plot(noise_stim)
 plt.subplot(1,2,2)
@@ -35,6 +37,7 @@ F_L = linear_resp.copy()
 F_L[F_L < 0] = 0
 F_L = r_max*(F_L/np.max(F_L))
 r_est = r_0 + F_L
+plt.figure(constrained_layout=True)
 plt.plot(r_est)
 
 #%% Poisson spike generation
@@ -53,6 +56,7 @@ for i in spike_times:
     sta += noise_stim[(i-L):i]
 
 sta = sta/np.sum(spike_times > L)
+plt.figure(constrained_layout=True)
 plt.plot(sta)
 #%% Estimating the nonlinear part using histogram technique
 bins = np.arange(np.min(linear_resp),np.max(linear_resp),0.01)
@@ -62,6 +66,7 @@ sta_hist = np.histogram(linear_resp[spikes == 1],bins)[0]
 
 nl_estimate = np.true_divide(sta_hist,raw_hist)
 
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.hist(linear_resp, bins, density=True, alpha=0.5)
 plt.hist(linear_resp[spikes == 1], bins, density=True, alpha=0.5)
@@ -71,6 +76,7 @@ plt.plot(bins[:-1],nl_estimate)
 #%% Demonstration of a nonlinear pooling cell
 D1 = alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(math.factorial(5)))
 D2 = -alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(math.factorial(5)))
+plt.figure(constrained_layout=True)
 plt.plot(-t,D1)
 plt.plot(-t,D2)
 
@@ -105,4 +111,5 @@ for i in spike_times:
     sta += noise_stim[(i-L):i]
 
 sta = sta/np.sum(spike_times > L)
+plt.figure(constrained_layout=True)
 plt.plot(sta)

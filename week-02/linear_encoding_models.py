@@ -24,7 +24,7 @@ amplification = 1.5
 for i in range(delay,len(stim)):
     response[i] = amplification*stim[i-delay]
 
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.plot(t,stim)
 plt.plot(t,response)
 plt.xlabel('Time (s)')
@@ -35,7 +35,7 @@ lf = np.zeros(50)
 lf[-1] = amplification
 response = np.convolve(stim,lf)
 
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.plot(t,stim)
 plt.plot(t,response[:len(t)])
 plt.xlabel('Time (s)')
@@ -56,8 +56,9 @@ for i in range(filter_points, len(stim)):
     for j in range(filter_points):
         response[0,i] += stim[i-j]*ra_filter[j]
         response[1,i] += stim[i-j]*la_filter[j]
-            
 
+plt.figure(constrained_layout=True)
+plt.subplot(1,2,1)
 plt.plot(ra_filter)
 plt.axhline(0,color ='k')
 plt.gca().invert_xaxis()
@@ -75,6 +76,7 @@ for i in range(filter_points, len(stim)):
     for j in range(filter_points):
         response[i] += stim[i-j]*la_filter[j]
 
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.plot(la_filter)
 plt.axhline(0,color ='k')
@@ -91,6 +93,7 @@ sigma_s = 0.7
 
 rgc = (1/(2*np.pi*sigma_c**2))*np.exp(- (X**2 + Y**2)/(2*sigma_c**2)) - (B/(2*np.pi*sigma_s**2))*np.exp(- (X**2 + Y**2)/(2*sigma_s**2))
 
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.imshow(rgc)
 plt.title('On center ganglion cell')
@@ -113,10 +116,12 @@ except Exception:
     except Exception:
         Xg, Yg = np.meshgrid(np.linspace(-np.pi, np.pi, 256), np.linspace(-np.pi, np.pi, 256))
         ascent = (127.5 * (np.sin(3 * Xg) + np.cos(5 * Yg))).astype(np.float32)
+plt.figure(constrained_layout=True)
 plt.gray()
 plt.imshow(ascent)
 
 a = signal.convolve2d(ascent, rgc)
+plt.figure(constrained_layout=True)
 plt.imshow(a)
 #%% Case 4: Linear filter for V1 cells
 [X,Y] = np.meshgrid(np.arange(-3,3,0.1),np.arange(-3,3,0.1))
@@ -131,6 +136,7 @@ X_rot = X*np.cos(theta) + Y*np.sin(theta)
 Y_rot = -X*np.sin(theta) + Y*np.cos(theta)
 
 g = np.exp( - (X_rot**2 + (gamma**2)*(Y_rot**2))/(2*sigma**2))*np.cos(2*np.pi*f*X_rot + phi)
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.title('Simple cell RF')
 plt.axis('off')
@@ -148,5 +154,6 @@ t = np.arange(0,300,1)
 
 D = alpha*np.exp(-alpha*t)*( ((alpha*t)**5)/(math.factorial(5)) - ((alpha*t)**7)/math.factorial(7))
 
+plt.figure(constrained_layout=True)
 plt.plot(-t,D)
 

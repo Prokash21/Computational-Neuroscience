@@ -32,6 +32,7 @@ for t in range(n_trials):
 print(np.mean(spike_count))
 print(np.var(spike_count))
 bins = np.arange(np.min(spike_count),np.max(spike_count),1)
+plt.figure(constrained_layout=True)
 plt.hist(spike_count, bins - 0.5, density=True)  # We subtract 0.5 because the values in bins represent the centers
 plt.plot(bins,poisson.pmf(bins,mu=r*T),':k',linewidth=2.5)
 plt.title('Spike count histogram')
@@ -39,6 +40,7 @@ plt.xlabel('Spike count')
 plt.legend(['Poisson','Data'])
 plt.show()
 
+plt.figure(constrained_layout=True)
 # Plot the inter spike interval distribution
 #isi = isi*dt
 bins = np.arange(np.min(isi),np.max(isi),10)
