@@ -28,7 +28,7 @@ for t in range(1,n_steps):
 P_max = np.max(P_s)
 
 P_s_e = P_max*np.exp(-time*b_s)
-
+plt.figure(constrained_layout=True)
 plt.plot(time,P_s)
 plt.plot(time,P_s_e)
 plt.xlabel('Time (ms)')
@@ -49,6 +49,7 @@ for t in range(1,n_steps):
     else:
         P_s[t] = P_s[t-1] - (P_s[t-1]/tau_s)*dt
 
+plt.figure(constrained_layout=True)
 plt.plot(time,P_s)
     
 #%% Modeling GABA_A and NMDA as a difference of two gaussian
