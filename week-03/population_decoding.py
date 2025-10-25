@@ -47,6 +47,7 @@ c_a = np.array([np.cos(theta),np.sin(theta)])
 wind_direction = np.arange(-180,180,5)
 tuning_curves = np.zeros((len(theta),len(wind_direction)))
 ls = ['--','-']
+plt.figure(constrained_layout=True)
 for i in range(len(theta)):
     tuning_curves[i] = 25*cricket_response_1(np.deg2rad(wind_direction),theta[i])
     plt.plot(wind_direction,tuning_curves[i], 'k',linestyle = ls[i%2])
@@ -59,6 +60,7 @@ plt.ylabel('Firing rate')
 n_trials = 100
 error = np.zeros((n_trials,len(wind_direction)))
 
+plt.figure(constrained_layout=True)
 for i,s in enumerate(np.deg2rad(wind_direction)):    
     for trial_id in range(n_trials):
         r = 50*cricket_response_1(s,theta)
@@ -85,6 +87,7 @@ plt.title('Population decoding of cercal interneurons')
 separation = 15
 prefered_directions = np.deg2rad(np.arange(0, 360, separation))
 arm_direction = np.arange(0,360,5)
+plt.figure(constrained_layout=True)
 for i in range(len(prefered_directions)):
     plt.plot(arm_direction, M1_response(np.deg2rad(arm_direction), prefered_directions[i]),'-k')
 
@@ -101,6 +104,7 @@ c_a = np.array([np.cos(prefered_directions),np.sin(prefered_directions)])
 
 n_repetitions = 100
 error = np.zeros((n_repetitions,len(arm_direction)))
+plt.figure(constrained_layout=True)
 for i, s in enumerate(np.deg2rad(arm_direction)):
     v_pop = np.zeros(2)
     for rep in range(n_repetitions):

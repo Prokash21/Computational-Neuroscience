@@ -30,6 +30,7 @@ lr = d2/d1
 lr_1   = np.argmax(lr>=1)
 
 # Plot the results
+plt.figure(constrained_layout=True)
 plt.subplot(121)
 plt.plot(x,d1)
 plt.plot(x,d2)
@@ -54,6 +55,7 @@ for i in range(1,n_samples):
     evidence[1,i] = evidence[1,i-1] + np.log(lr[sample+100])
     evidence[2,i] = evidence[2,i-1] + np.log(lr[sample+200])
     
+plt.figure(constrained_layout=True)
 plt.plot(evidence.transpose())
 plt.ylim(-50,50)
 plt.title('Accumlation of evidence')
@@ -71,6 +73,7 @@ pd2 = p_2*d2
 lr_1 = np.argmax((d2/d1) >= 1)
 lr_2 = np.argmax((pd2/pd1) >= 1)
 
+plt.figure(constrained_layout=True)
 plt.subplot(121)
 plt.plot(x,d1)
 plt.plot(x,d2)
@@ -91,6 +94,7 @@ L_1 = 1.0
 lr_1   = np.argmax(lr>=1)
 lr_2   = np.argmax(lr>=L_2/L_1)
 
+plt.figure(constrained_layout=True)
 plt.subplot(121)
 plt.plot(x,d1)
 plt.plot(x,d2)
@@ -118,6 +122,7 @@ r_0 = np.linspace(0,2*np.pi,n_neurons)# Prefered orientation for each neuron
 
 # Produces a plot of the orientation tuning curves for each of the neurons in
 # our population
+plt.figure(constrained_layout=True)
 cell_tuning = np.zeros( (n_neurons, len(s)))
 for i in range(n_neurons):
     cell_tuning[i,:] = gauss_tuning(s,r_0[i],sigma,r_max) 
@@ -153,8 +158,9 @@ for i in range(n_neurons):
     num += mean_response[i]*r_0[i]/(sigma**2)
     denom += mean_response[i]/(sigma**2)
 s_pred = num/denom
-print "Presented stimulus: " + str(s[s_index])
-print "Predicted stimulus: " + str(s_pred)
+print("Presented stimulus: " + str(s[s_index]))
+print("Predicted stimulus: " + str(s_pred))
+plt.figure(constrained_layout=True)
 plt.subplot(121)            
 plt.spy(neuron_response,aspect='auto')
 for i in np.arange(9.5,n_repetitions*n_neurons,n_repetitions):

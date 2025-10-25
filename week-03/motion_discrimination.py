@@ -22,6 +22,7 @@ r_plus = np.random.poisson(r(0, c=1), n_trials)
 r_min  = np.random.poisson(r(90,c=1), n_trials)  
 
 bins = np.arange(np.min(r_min),np.max(r_plus))
+plt.figure(constrained_layout=True)
 plt.hist(r_plus,bins, alpha = 0.7)
 plt.hist(r_min,bins, alpha = 0.7)
 
@@ -37,7 +38,7 @@ beta_z   = np.zeros(len(z_values))
 for i in range(len(z_values)):
     alpha_z[i] = float(np.sum(r_min>z_values[i]))/n_trials
     beta_z[i]  = float(np.sum(r_plus>z_values[i]))/n_trials
-
+plt.figure(constrained_layout=True)
 plt.plot(alpha_z, beta_z,'o-')
 plt.plot([0,1],[0,1],'--k')
 plt.axis('scaled')
@@ -61,6 +62,7 @@ for i in range(len(c_values)):
 
     auc_performance[i] = trapezoid(beta_z[::-1], x=alpha_z[::-1])
     
+plt.figure(constrained_layout=True)
 plt.plot(c_values, auc_performance)
 plt.xlabel('Coherence level')
 plt.ylabel('Performance')
@@ -79,12 +81,14 @@ for i in range(len(c_values)):
     fc_performance[i] = np.sum(r_plus>r_min)/float(n_trials)
     det_performance[i] = (np.sum(r_plus>m_det) + np.sum(r_min<m_det))/(2.0*n_trials)
     
+plt.figure(constrained_layout=True)
 plt.plot(c_values, fc_performance)
 plt.plot(c_values, det_performance)
 plt.xlabel('Coherence level')
 plt.ylabel('Performance')
 
 #%% Compare theoretical with forced choice performance
+plt.figure(constrained_layout=True)
 plt.plot(c_values,auc_performance,'-k')
 plt.plot(c_values,fc_performance,'-ob')
 plt.plot(c_values,det_performance,'-og')

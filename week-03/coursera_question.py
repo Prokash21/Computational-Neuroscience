@@ -36,6 +36,7 @@ cdf_2 = norm.cdf(x,mu_2,sigma_2)
 lr_1 = np.log(pdf_2/pdf_1)
 lr_2 = np.log((cdf_2)/(1-cdf_1))
 
+plt.figure(constrained_layout=True)
 plt.subplot(2,2,1)
 plt.plot(x,pdf_1)
 plt.plot(x,pdf_2)
