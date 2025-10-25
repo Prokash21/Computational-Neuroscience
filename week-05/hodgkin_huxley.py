@@ -39,6 +39,7 @@ for i in range(1,len(I)):
     dV = (-(V_euler[i-1] - V_rest) + R*I[i])/tau
     V_euler[i] = V_euler[i-1] + dV*dt
 
+plt.figure(constrained_layout=True)
 plt.plot(V_exact,'k')
 plt.plot(V_euler,'--k')
 plt.plot(I,'r')
@@ -67,7 +68,7 @@ inf_m = alpha_m*tau_m
 tau_h = 1/(alpha_h + beta_h)
 inf_h = alpha_h*tau_h
 
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.plot(V,inf_n)
 plt.plot(V,inf_m)
@@ -148,7 +149,7 @@ for i in range(1,len(t)):
     dv = I_E - (I_Na + I_K + I_L)
     V[i]  = V[i-1] + dv*dt
     
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.subplot(1,3,1)
 plt.plot(t,V)
 plt.subplot(1,3,2)

@@ -46,7 +46,7 @@ for i in range(1,len(t)):
         refrac = 3
 
 # Plot the resulting voltage trace
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.plot(t,V_trace)
 plt.axhline(V_thres,linestyle = '--',color='k')
@@ -99,7 +99,7 @@ for i in range(2):
             refrac = max_refrac
         
 # Plot voltage traces
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.plot(t,V_trace[0,:],'--k')
 plt.plot(t,V_trace[1,:],'k')
@@ -157,7 +157,7 @@ for i in range(2):
     
         theta_trace[i,j] = current_theta + dTheta*dt
 
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.subplot(1,3,1)
 plt.title('Phase evolution')
 plt.axhline(fp_1,color='r')
