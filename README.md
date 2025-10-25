@@ -3,7 +3,7 @@
 This fork modernizes and automates running classic computational neuroscience scripts (Weeks 02–08): fixing deprecations, adding a headless runner, auto‑downloading the AT&T faces dataset via KaggleHub, and organizing/saving results per task with optional weekly montages.
 
 Key additions:
-- `scripts/run_and_save.py` — headless runner that saves all Matplotlib figures per script to `outputs/<week>/<script>/figN.png`.
+- `scripts/run_and_save.py` — headless runner that saves up to two Matplotlib figures per script to `outputs/<week>/<script>/01*.png` and `02*.png`.
 - `scripts/organize_outputs.py` — migrates legacy flat images to the new folder layout and slugifies names.
 - `scripts/make_montage.py` — builds weekly overview montages (grids) combining multiple outputs.
 - Modernized code: fixed deprecated `normed=True` histograms, `np.math.factorial`, SciPy `trapz`, added `seaborn`-style figures, and a robust `eigenfaces` data path with KaggleHub/scikit‑learn fallbacks.
@@ -21,7 +21,7 @@ Below are selected generated figures. “Coursera question” is intentionally e
 
 3) Run any demo and save plots
 - `py -3 scripts/run_and_save.py week-05\hodgkin_huxley.py --outdir outputs`
-- Figures save under `outputs/week-05/hodgkin_huxley/fig1.png`, etc.
+- Figures save under `outputs/week-05/hodgkin_huxley/01*.png`, etc.
 
 4) Eigenfaces data (AT&T/ORL)
 - Preferred: `pip install kagglehub`
@@ -40,10 +40,10 @@ Overview montage:
 ![Week 02 Overview](outputs/week-02/overview/overview.png)
 
 Individuals:
-- LNP: `outputs/week-02/lnp_model/fig1.png`
-- Poisson neuron: `outputs/week-02/poisson_neuron/fig1.png`
-- Linear encoding models: `outputs/week-02/linear_encoding_models/fig1.png`
-- Eigenfaces: `outputs/week-02/eigenfaces/fig1.png`
+- LNP: `outputs/week-02/lnp_model/01*.png`
+- Poisson neuron: `outputs/week-02/poisson_neuron/01*.png`
+- Linear encoding models: `outputs/week-02/linear_encoding_models/01*.png`
+- Eigenfaces: `outputs/week-02/eigenfaces/01*.png`
 
 ### Week 03 — ROC/Neurometrics/Decoding
 
@@ -52,12 +52,12 @@ Overview montage (coursera_question excluded):
 ![Week 03 Overview](outputs/week-03/overview/overview.png)
 
 Individuals:
-- Motion discrimination: `outputs/week-03/motion_discrimination/fig1.png`
-- Population decoding: `outputs/week-03/population_decoding/fig1.png`
+- Motion discrimination: `outputs/week-03/motion_discrimination/01*.png`
+- Population decoding: `outputs/week-03/population_decoding/01*.png`
 
 ### Week 04 — Information Theory
 
-- Entropy/M.I. plots: `outputs/week-04/Entropy/fig1.png`
+- Entropy/M.I. plots: `outputs/week-04/Entropy/01*.png`
 
 ### Week 05 — Membranes and Spiking Models
 
@@ -66,12 +66,12 @@ Overview montage:
 ![Week 05 Overview](outputs/week-05/overview/overview.png)
 
 Individuals:
-- Hodgkin–Huxley: `outputs/week-05/hodgkin_huxley/fig1.png`
-- Simplified (IF/eIF): `outputs/week-05/simplified_models/fig1.png`
+- Hodgkin–Huxley: `outputs/week-05/hodgkin_huxley/01*.png`
+- Simplified (IF/eIF): `outputs/week-05/simplified_models/01*.png`
 
 ### Week 06 — Synapses
 
-- Kinetic/Filter synapse models: `outputs/week-06/modeling-synapses/fig1.png`
+- Kinetic/Filter synapse models: `outputs/week-06/modeling-synapses/01*.png`
 
 ### Week 07 — Unsupervised Learning
 
@@ -80,9 +80,9 @@ Overview montage:
 ![Week 07 Overview](outputs/week-07/overview/overview.png)
 
 Individuals:
-- Hebbian learning: `outputs/week-07/hebbian_learning/fig1.png`
-- Competitive learning: `outputs/week-07/competitive_learning/fig1.png`
-- EM (GMM): `outputs/week-07/em_algorithm/fig1.png`
+- Hebbian learning: `outputs/week-07/hebbian_learning/01*.png`
+- Competitive learning: `outputs/week-07/competitive_learning/01*.png`
+- EM (GMM): `outputs/week-07/em_algorithm/01*.png`
 
 ### Week 08 — Supervised/RL
 
@@ -91,15 +91,15 @@ Overview montage:
 ![Week 08 Overview](outputs/week-08/overview/overview.png)
 
 Individuals:
-- Perceptron classifiers: `outputs/week-08/perceptron_classifiers/fig1.png`
-- Backpropagation: `outputs/week-08/backpropagation/fig1.png`
-- TD rule: `outputs/week-08/td_rule/fig1.png`
+- Perceptron classifiers: `outputs/week-08/perceptron_classifiers/01*.png`
+- Backpropagation: `outputs/week-08/backpropagation/01*.png`
+- TD rule: `outputs/week-08/td_rule/01*.png`
 
 ## Workflow Details
 
 Runner (headless, publication style):
 - Non‑interactive backend (`Agg`) and seaborn‑paper theme with tuned rcParams.
-- Automatically slugifies output folders: `outputs/<week>/<script>/figN.png`.
+- Automatically places figures under: `outputs/<week>/<script>/01*.png` and `02*.png`.
 - Pass script args after `--` (e.g., eigenfaces KaggleHub flag).
 
 Modernizations:
