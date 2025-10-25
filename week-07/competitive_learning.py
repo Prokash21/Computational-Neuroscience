@@ -53,6 +53,7 @@ for i in range(n_trials):
     weights[winner,:] += delta_w
 
 # Plot the data cloud
+plt.figure(constrained_layout=True)
 plt.plot(c1_data[0,:],c1_data[1,:],'xk',alpha = 0.5)
 plt.plot(c2_data[0,:],c2_data[1,:],'xb',alpha = 0.5)
 plt.xlim(-30,30)

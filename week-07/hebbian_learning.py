@@ -59,6 +59,7 @@ for i in range(n_samples):
 
 
 # Plot weight vector norm and alignment with principal component
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.plot(weights_norm)
 plt.xlabel('Sample presented')
@@ -80,6 +81,7 @@ w_C = eigen_vec[:,-1]                   # Weight vector based on first eigenvect
 
 r = 40 # Constant for setting arrow lengths
 
+plt.figure(constrained_layout=True)
 arrow_1 = plt.arrow(0,0,r*w_normed[0],r*w_normed[1],fc='k',ec='k',head_width=2)
 arrow_2 = plt.arrow(0,0,r*w_E[0],r*w_E[1],fc='g',ec='g',head_width=2)
 arrow_3 = plt.arrow(0,0,r*w_C[0],r*w_C[1],fc='r',ec='r',head_width=2)

@@ -25,6 +25,7 @@ n_samples = 100        # Samples in each cluster
 c1_data = np.array([np.random.normal(c1_center[0],c1_spread[0],n_samples),np.random.normal(c1_center[0],c1_spread[1],n_samples)])
 c2_data = np.array([np.random.normal(c2_center[0],c2_spread[1],n_samples),np.random.normal(c2_center[1],c2_spread[1],n_samples)])
 data    = np.concatenate((c1_data,c2_data),axis=1)
+plt.figure(constrained_layout=True)
 plt.plot(c1_data[0,:],c1_data[1,:],'.k')
 plt.plot(c2_data[0,:],c2_data[1,:],'.b')
 
@@ -84,6 +85,7 @@ z_2     = np.reshape(multivariate_normal.pdf(a, mean = c2_center, cov = c2_sprea
 z_final = 0.5*z_1 + 0.5*z_2
 
 # Plot the different distributions
+plt.figure(constrained_layout=True)
 plt.subplot(1,3,1)
 plt.imshow(z_init,extent=[-10,20,20,-10],alpha=0.9,cmap='Reds')
 plt.title('Initial estimate')
