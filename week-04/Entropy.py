@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 # to the overall entropy of the distribution
 p = np.arange(0.01,1,0.001)
 i = -p*np.log2(p)
+plt.figure(constrained_layout=True)
 plt.plot(p,i)
 plt.xlabel('probability')
 plt.ylabel('Entropy value')
@@ -33,9 +34,10 @@ for i in p:
     H = i*np.log2(i) + (1-i)*np.log2(1-i)
     y.append(-H)
     
+plt.figure(constrained_layout=True)
 plt.plot(p,y)
 plt.xlabel('p')
-plt.xlabel('H')
+plt.ylabel('H')
 plt.title('Bernoulli distribution entropy as  a function of p')
 
 #%% Mutual information
@@ -54,6 +56,7 @@ for i in range(len(error_probabilities)):
     HR_smin  = -(q*np.log2(q) + (1-q)*np.log2(1-q))
     MI[i] = HR - (s_rp*HR_splus + (1-s_rp)*HR_smin)
 
+plt.figure(constrained_layout=True)
 plt.plot(error_probabilities,MI)
 plt.title('Mutual information')
 plt.xlabel('Error probability')
@@ -124,12 +127,13 @@ for sigma_idx in range(n_sigma):
     HR = calculate_entropy(spike_counts.flatten())
     MI[sigma_idx] = HR - NE
         
+plt.figure(constrained_layout=True)
 plt.plot(sigma_values,MI)
 plt.title('Optimal standard deviation')
 plt.xlabel('Standard deviation')
 plt.ylabel('MI')
 #%% Produces histogram for the spike count frequencies
-plt.clf()
+plt.figure(constrained_layout=True)
 plt.subplot(1,2,1)
 plt.hist(spike_counts.flatten())
 plt.title('Response distribution')
